@@ -10,5 +10,7 @@ build:
 	docker build --tag $(FULL_TAG)  .
 
 push: | build
-	docker push $(FULL_TAG) 
+	(docker push $(FULL_TAG) || \
+		(echo -n $${DOCKER_PASSWORD} | docker login --password-stdin -u $${DOCKER_USERNAME} && \
+		docker push $(FULL_TAG) && docker logout))
 	docker rmi $(FULL_TAG)
