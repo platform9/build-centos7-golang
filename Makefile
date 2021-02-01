@@ -6,8 +6,11 @@ REPO_TAG ?= platform9systems/$(IMAGE_NAME)
 IMAGE_TAG := 1.15.2
 FULL_TAG :=$(REPO_TAG):$(IMAGE_TAG)
 
+default: build
+.PHONY: default build push
+
 build: 
-	docker build --tag $(FULL_TAG)  .
+	docker build --tag $(FULL_TAG) --build-arg GOLANG_VERSION=$(IMAGE_TAG) .
 
 push: | build
 	(docker push $(FULL_TAG) || \
