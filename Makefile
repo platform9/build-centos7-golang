@@ -1,9 +1,9 @@
 IMAGE_NAME := build-centos7-golang
 # you can override this for testing
-REPO_TAG ?= platform9systems/$(IMAGE_NAME)
+REPO_TAG ?= platform9/$(IMAGE_NAME)
 
 # image tag is the golang build number
-IMAGE_TAG := 1.15.2
+IMAGE_TAG := 1.17.3
 FULL_TAG :=$(REPO_TAG):$(IMAGE_TAG)
 
 default: build
