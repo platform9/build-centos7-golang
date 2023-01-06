@@ -3,7 +3,7 @@ IMAGE_NAME := build-centos7-golang
 REPO_TAG ?= platform9/$(IMAGE_NAME)
 
 # image tag is the golang build number
-IMAGE_TAG := 1.17.3
+IMAGE_TAG := 1.19.4
 FULL_TAG :=$(REPO_TAG):$(IMAGE_TAG)
 
 default: build
