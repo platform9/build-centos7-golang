@@ -1,14 +1,14 @@
-FROM centos:centos7.6.1810
+FROM rockylinux:9
 ARG GOLANG_VERSION
-RUN yum -y install \
+RUN dnf -y --allowerasing install \
         curl \
         epel-release \
-        https://packages.endpoint.com/rhel/7/os/x86_64/endpoint-repo-1.7-1.x86_64.rpm \
-    && rpm --import https://mirror.go-repo.io/centos/RPM-GPG-KEY-GO-REPO \
-    && curl -s https://mirror.go-repo.io/centos/go-repo.repo | tee /etc/yum.repos.d/go-repo.repo \
-    && yum -y install \
         git \
-        golang-${GOLANG_VERSION} \
-        libvirt-devel \
-        make \
-    && yum clean all
+	wget \
+        make
+RUN dnf --enablerepo=devel -y install libvirt-devel
+RUN wget https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz
+RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go${GOLANG_VERSION}.linux-amd64.tar.gz
+RUN ln -s /usr/local/go/bin/go /usr/bin/go
+RUN go version
+RUN dnf clean all
