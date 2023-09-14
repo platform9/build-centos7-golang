@@ -1,2 +1,4 @@
 # build-centos7-golang
-Centos7 + Golang + libvirt base
+Rocky9 (was Centos7) + Golang build image
+
+Used to run [airctl](https://github.com/platform9/airctl) builds.
