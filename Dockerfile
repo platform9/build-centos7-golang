@@ -1,4 +1,4 @@
-FROM golangci/golangci-lint:v1.59.1
+FROM golangci/golangci-lint:v1.61-alpine
 
 FROM rockylinux:9
 ARG GOLANG_VERSION
