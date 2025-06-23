@@ -4,7 +4,7 @@ REGISTRY := quay.io
 REPO_TAG ?= $(REGISTRY)/platform9/$(IMAGE_NAME)
 
 # image tag is the golang build number
-IMAGE_TAG := 1.23.4
+IMAGE_TAG := 1.23.10
 FULL_TAG :=$(REPO_TAG):$(IMAGE_TAG)
 
 default: build
