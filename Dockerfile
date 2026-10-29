@@ -1,7 +1,8 @@
-FROM golangci/golangci-lint:v1.62-alpine
+FROM golangci/golangci-lint:v1.62-alpine AS lint
 
 FROM rockylinux:9
 ARG GOLANG_VERSION
+ARG TARGETARCH
 RUN dnf -y --allowerasing install \
         curl \
         epel-release \
@@ -9,7 +10,10 @@ RUN dnf -y --allowerasing install \
 	wget \
         make
 RUN dnf --enablerepo=devel -y install libvirt-devel
-RUN wget https://go.dev/dl/go${GOLANG_VERSION}.linux-amd64.tar.gz
-RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go${GOLANG_VERSION}.linux-amd64.tar.gz && ln -s /usr/local/go/bin/go /usr/bin/go
-COPY --from=0 /usr/bin/golangci-lint /usr/bin/
+RUN wget -O /tmp/go.tgz https://go.dev/dl/go${GOLANG_VERSION}.linux-${TARGETARCH}.tar.gz \
+	&& rm -rf /usr/local/go \
+	&& tar -C /usr/local -xzf /tmp/go.tgz \
+	&& ln -s /usr/local/go/bin/go /usr/bin/go \
+	&& rm -f /tmp/go.tgz
+COPY --from=lint /usr/bin/golangci-lint /usr/bin/
 RUN dnf clean all
