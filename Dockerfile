@@ -1,6 +1,6 @@
-FROM golangci/golangci-lint:v1.62-alpine AS lint
+FROM mirror.gcr.io/golangci/golangci-lint:v1.62-alpine AS lint
 
-FROM rockylinux:9
+FROM mirror.gcr.io/library/rockylinux:9
 ARG GOLANG_VERSION
 ARG TARGETARCH
 RUN dnf -y --allowerasing install \
